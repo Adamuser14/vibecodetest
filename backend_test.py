@@ -75,10 +75,10 @@ class CarRentalSaaSBackendTest:
         print(f"Response Status: {response.status_code}")
         print(f"Response Body: {json.dumps(response.json(), indent=2)}")
         
-        self.assertEqual(response.status_code, 200)
-        self.assertIn("token", response.json())
-        self.assertIn("user", response.json())
-        self.assertEqual(response.json()["user"]["role"], "super_admin")
+        assert response.status_code == 200, "Login failed with non-200 status code"
+        assert "token" in response.json(), "Login response missing token"
+        assert "user" in response.json(), "Login response missing user data"
+        assert response.json()["user"]["role"] == "super_admin", "User role is not super_admin"
         
         # Store the token for future requests
         self.super_admin_token = response.json()["token"]
