@@ -286,7 +286,7 @@ class CarRentalSaaSBackendTest:
         print(f"Response Status (No Auth): {response.status_code}")
         print(f"Response Body (No Auth): {response.json()}")
         
-        self.assertEqual(response.status_code, 401)
+        assert response.status_code == 401, "Protected endpoint did not return 401 status code"
         print("✅ Protected endpoint correctly requires authentication")
 
     def test_13_role_based_access_control(self):
