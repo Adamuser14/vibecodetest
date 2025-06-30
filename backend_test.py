@@ -7,8 +7,8 @@ import unittest
 # Base URL for the API
 BASE_URL = "http://localhost:8001/api"
 
-class CarRentalSaaSBackendTest(unittest.TestCase):
-    def setUp(self):
+class CarRentalSaaSBackendTest:
+    def __init__(self):
         # Initialize variables to store tokens and IDs
         self.super_admin_token = None
         self.agency_id = None
