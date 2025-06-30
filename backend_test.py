@@ -211,9 +211,9 @@ class CarRentalSaaSBackendTest:
         print(f"Response Status: {response.status_code}")
         print(f"Response Body: {json.dumps(response.json(), indent=2)}")
         
-        self.assertEqual(response.status_code, 200)
-        self.assertIn("cars", response.json())
-        self.assertIsInstance(response.json()["cars"], list)
+        assert response.status_code == 200, "Get agency cars failed with non-200 status code"
+        assert "cars" in response.json(), "Get agency cars response missing cars data"
+        assert isinstance(response.json()["cars"], list), "Cars data is not a list"
         print("✅ Successfully retrieved agency cars")
 
     def test_09_get_agency_bookings(self):
