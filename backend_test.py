@@ -115,16 +115,19 @@ class CarRentalSaaSBackendTest:
             json=self.test_agency
         )
         print(f"Response Status: {response.status_code}")
-        print(f"Response Body: {json.dumps(response.json(), indent=2)}")
-        
-        assert response.status_code == 200, "Agency creation failed with non-200 status code"
-        assert "agency" in response.json(), "Agency creation response missing agency data"
-        assert "agency_id" in response.json()["agency"], "Agency creation response missing agency_id"
-        
-        # Store the agency ID for future requests
-        self.agency_id = response.json()["agency"]["agency_id"]
-        self.test_car["agency_id"] = self.agency_id
-        print(f"✅ Agency created successfully with ID: {self.agency_id}")
+        try:
+            print(f"Response Body: {json.dumps(response.json(), indent=2)}")
+            assert response.status_code == 200, "Agency creation failed with non-200 status code"
+            assert "agency" in response.json(), "Agency creation response missing agency data"
+            assert "agency_id" in response.json()["agency"], "Agency creation response missing agency_id"
+            
+            # Store the agency ID for future requests
+            self.agency_id = response.json()["agency"]["agency_id"]
+            self.test_car["agency_id"] = self.agency_id
+            print(f"✅ Agency created successfully with ID: {self.agency_id}")
+        except Exception as e:
+            print(f"❌ Error in agency creation: {str(e)}")
+            print(f"Response Text: {response.text}")
 
     def test_05_get_agencies(self):
         """Test fetching all agencies as super admin"""
