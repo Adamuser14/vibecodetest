@@ -185,9 +185,9 @@ class CarRentalSaaSBackendTest:
         print(f"Response Status: {response.status_code}")
         print(f"Response Body: {json.dumps(response.json(), indent=2)}")
         
-        self.assertEqual(response.status_code, 200)
-        self.assertIn("car", response.json())
-        self.assertIn("car_id", response.json()["car"])
+        assert response.status_code == 200, "Car creation failed with non-200 status code"
+        assert "car" in response.json(), "Car creation response missing car data"
+        assert "car_id" in response.json()["car"], "Car creation response missing car_id"
         
         # Store the car ID for future requests
         self.car_id = response.json()["car"]["car_id"]
