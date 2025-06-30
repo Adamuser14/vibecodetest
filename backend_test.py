@@ -58,8 +58,8 @@ class CarRentalSaaSBackendTest:
         print(f"Response Status: {response.status_code}")
         print(f"Response Body: {response.json()}")
         
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json()["status"], "healthy")
+        assert response.status_code == 200, "Health check failed with non-200 status code"
+        assert response.json()["status"] == "healthy", "Health check did not return 'healthy' status"
         print("✅ Health check endpoint is working correctly")
 
     def test_02_login_valid(self):
