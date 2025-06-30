@@ -97,8 +97,8 @@ class CarRentalSaaSBackendTest:
         print(f"Response Status: {response.status_code}")
         print(f"Response Body: {response.json()}")
         
-        self.assertEqual(response.status_code, 401)
-        self.assertIn("detail", response.json())
+        assert response.status_code == 401, "Invalid login did not return 401 status code"
+        assert "detail" in response.json(), "Invalid login response missing detail"
         print("✅ Invalid login correctly rejected")
 
     def test_04_create_agency(self):
