@@ -161,10 +161,10 @@ class CarRentalSaaSBackendTest:
         print(f"Response Status: {response.status_code}")
         print(f"Response Body: {json.dumps(response.json(), indent=2)}")
         
-        self.assertEqual(response.status_code, 200)
-        self.assertIn("total_agencies", response.json())
-        self.assertIn("total_cars", response.json())
-        self.assertIn("total_bookings", response.json())
+        assert response.status_code == 200, "Get analytics failed with non-200 status code"
+        assert "total_agencies" in response.json(), "Analytics missing total_agencies"
+        assert "total_cars" in response.json(), "Analytics missing total_cars"
+        assert "total_bookings" in response.json(), "Analytics missing total_bookings"
         print("✅ Successfully retrieved admin analytics")
 
     def test_07_create_car(self):
