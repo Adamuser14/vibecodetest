@@ -272,9 +272,9 @@ class CarRentalSaaSBackendTest:
         print(f"Response Status: {response.status_code}")
         print(f"Response Body: {json.dumps(response.json(), indent=2)}")
         
-        self.assertEqual(response.status_code, 200)
-        self.assertIn("booking", response.json())
-        self.assertIn("booking_id", response.json()["booking"])
+        assert response.status_code == 200, "Create booking failed with non-200 status code"
+        assert "booking" in response.json(), "Create booking response missing booking data"
+        assert "booking_id" in response.json()["booking"], "Create booking response missing booking_id"
         print("✅ Successfully created a booking")
 
     def test_12_security_protected_endpoints(self):
